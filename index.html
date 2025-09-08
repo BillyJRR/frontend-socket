@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario con Socket</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+  <h2>Formulario con Socket</h2>
+  <form>
+    <label>Nombre:</label>
+    <input type="text" id="name" readonly><br><br>
+
+    <label>Email:</label>
+    <input type="text" id="email" readonly><br><br>
+
+    <label>Teléfono:</label>
+    <input type="text" id="phone" readonly>
+  </form>
+
+  <script>
+    // Conexión al backend (cambiar la URL por la de Azure)
+    const socket = io("http://localhost:3000");
+
+    socket.on("connect", () => {
+      console.log("Conectado al socket:", socket.id);
+    });
+
+    // Escuchar los datos que llegan desde el backend
+    socket.on("formData", (data) => {
+      console.log("Datos recibidos:", data);
+
+      // Rellenar los inputs del formulario
+      document.getElementById("name").value = data.name || "";
+      document.getElementById("email").value = data.email || "";
+      document.getElementById("phone").value = data.phone || "";
+    });
+  </script>
+</body>
+</html>
