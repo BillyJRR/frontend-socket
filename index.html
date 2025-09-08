@@ -20,8 +20,8 @@
 
   <script>
     // Conexión al backend (cambiar la URL por la de Azure)
-    const socket = io("http://localhost:3000");
-
+    const socket = io("https://backend-socket-hgb0cnbrbgccf6hk.canadacentral-01.azurewebsites.net", { transports: ['websocket'] });
+    
     socket.on("connect", () => {
       console.log("Conectado al socket:", socket.id);
     });
